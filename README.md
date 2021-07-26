@@ -1,5 +1,19 @@
 # `async-off`: make asynchronous TypeScript code synchronous
 
+## Installation
+
+Using without installation:
+
+```
+npx async-off path/to/file.ts
+```
+
+Installation:
+
+```
+npm install -g async-off
+```
+
 ## Usage
 
 ```
