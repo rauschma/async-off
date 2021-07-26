@@ -1,13 +1,13 @@
 {
   "name": "async-off",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "type": "module",
   "description": "Make asynchronous TypeScript code synchronous",
   "repository": {
     "type": "git",
     "url": "https://github.com/rauschma/async-off"
   },
-  "bin": "./ts/src/main.ts",
+  "bin": "./dist/src/main.js",
   "scripts": {
     "dry": "npm publish --dry-run",
     "prepublishOnly": "npm run clean && npm run build",
