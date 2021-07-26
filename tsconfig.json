@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "rootDir": "ts",
+    "outDir": "dist",
+    "target": "es2021",
+    "lib": [
+      "es2021", "DOM"
+    ],
+    "module": "ES2020",
+    "moduleResolution": "Node",
+    "strict": true,
+    "noImplicitOverride": true,
+    //
+    "sourceMap": true,
+  }
+}

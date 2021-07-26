@@ -1,0 +1,36 @@
+{
+  "name": "async-off",
+  "version": "1.0.1",
+  "type": "module",
+  "description": "Make asynchronous TypeScript code synchronous",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rauschma/async-off"
+  },
+  "bin": "./ts/src/main.ts",
+  "scripts": {
+    "dry": "npm publish --dry-run",
+    "prepublishOnly": "npm run clean && npm run build",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "clean": "rm -rf ./dist",
+    "test": "mocha --ui qunit",
+    "testall": "mocha --ui qunit './dist/test/**/*_test.js'"
+  },
+  "keywords": [
+    "typescript",
+    "async",
+    "await"
+  ],
+  "author": "Axel Rauschmayer",
+  "license": "MIT",
+  "dependencies": {
+    "ts-morph": "^11.0.3",
+    "zod": "^3.5.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.4.1",
+    "mocha": "^9.0.2"
+  }
+}
