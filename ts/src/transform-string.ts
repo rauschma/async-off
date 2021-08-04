@@ -50,7 +50,18 @@ export function transformString(inputText: string): string {
       awaitExpression.replaceWithText(operandText);
     });
 
-  // renameVariable
+  // renameVariable: PropertyAccessExpression
+  inputFile
+    .getDescendantsOfKind(SyntaxKind.PropertyAccessExpression)
+    .forEach((propAccess) => {
+      const identifierName = propAccess.getText();
+      const replacement = renameVariable.get(identifierName);
+      if (replacement) {
+        propAccess.replaceWithText(replacement);
+      }
+    });
+
+  // renameVariable: Identifier
   inputFile
     .getDescendantsOfKind(SyntaxKind.Identifier)
     .forEach((identifier) => {

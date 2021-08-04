@@ -2,9 +2,9 @@ import * as assert from 'assert/strict';
 import { transformString } from '../src/transform-string.js';
 import { dedent } from '../src/util.js';
 
-suite('main_test.ts');
+suite('transform-string_test.ts');
 
-test('transformString – complex example', () => {
+test('Complex example', () => {
   const input = dedent(`
     async function* map<In, Out>(
       mapperFn: (x: In) => Out,
@@ -42,7 +42,7 @@ test('transformString – complex example', () => {
 });
 
 
-test('transformString – async arrow function', () => {
+test('Async arrow function', () => {
   const input = dedent(`
     const twiceAsync = async (x) => x + x;
   `);
@@ -53,13 +53,38 @@ test('transformString – async arrow function', () => {
   assert.equal(transformString(input).trim(), output);
 });
 
-test('transformString – async function expression', () => {
+test('Async function expression', () => {
   const input = dedent(`
     const twiceAsync = async function (x) {return x + x};
   `);
 
   const output = dedent(`
     const twiceAsync = function (x) {return x + x};
+  `);
+  assert.equal(transformString(input).trim(), output);
+});
+
+test('Renaming a property access expression', () => {
+  const input = dedent(`
+    await assert.rejects(
+      async () => null.someProp,
+      TypeError
+    );
+
+    //<async-off-config>
+    // {
+    //   "renameVariable": {
+    //     "assert.rejects": "assert.throws"
+    //   }
+    // }
+    //</async-off-config>
+  `);
+
+  const output = dedent(`
+    assert.throws(
+      () => null.someProp,
+      TypeError
+    );
   `);
   assert.equal(transformString(input).trim(), output);
 });
