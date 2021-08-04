@@ -88,3 +88,35 @@ test('Renaming a property access expression', () => {
   `);
   assert.equal(transformString(input).trim(), output);
 });
+
+test('Rename a variable with a property access', () => {
+  const input = dedent(`
+    test('Using map()', async () => {
+      assert.deepEqual(
+        await toArray(AsyncIterable.map(x => x + x, fi(['a', 'b', 'c']))),
+        ['aa', 'bb', 'cc']
+      );
+    });
+  
+    //<async-off-config>
+    // {
+    //   "renameVariable": {
+    //     "AsyncIterable": "Iterable"
+    //   },
+    //   "unwrapFunctionCall": [
+    //     "fi"
+    //   ]
+    // }
+    //</async-off-config>
+  `);
+
+  const output = dedent(`
+    test('Using map()', () => {
+      assert.deepEqual(
+        toArray(Iterable.map(x => x + x, ['a', 'b', 'c'])),
+        ['aa', 'bb', 'cc']
+      );
+    });
+  `);
+  assert.equal(transformString(input).trim(), output);
+});
